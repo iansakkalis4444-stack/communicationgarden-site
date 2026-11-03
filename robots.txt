@@ -1,0 +1,4 @@
+# PREVIEW: disallow all until cutover to communicationgarden.ca
+# At cutover: replace with Allow: / and remove noindex meta from pages.
+User-agent: *
+Disallow: /
