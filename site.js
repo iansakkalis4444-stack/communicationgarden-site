@@ -431,6 +431,82 @@
   })();
 
 
+  /* Home hero clinic photo: soft pop-in, hover wobble, corner blooms */
+  (function heroPhotoFun() {
+    var photo = document.querySelector('[data-hero-photo]');
+    if (!photo) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var frame = photo.querySelector('.hero-photo-frame');
+
+    function miniDaisy(fill, center) {
+      return '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<g transform="translate(10 11)">' +
+        [0, 72, 144, 216, 288].map(function (deg) {
+          return '<ellipse cx="0" cy="-4.6" rx="2.2" ry="4" fill="' + fill + '" transform="rotate(' + deg + ')"/>';
+        }).join('') +
+        '<circle r="2" fill="' + center + '"/>' +
+        '</g></svg>';
+    }
+
+    var blooms = [
+      { cls: 'hero-photo-bloom--tl', fill: '#E87888', delay: '0.22s' },
+      { cls: 'hero-photo-bloom--tr', fill: '#E8C96A', delay: '0.34s' },
+      { cls: 'hero-photo-bloom--bl', fill: '#7BA8C9', delay: '0.42s' },
+      { cls: 'hero-photo-bloom--br', fill: '#8FB07A', delay: '0.5s' }
+    ];
+    blooms.forEach(function (b) {
+      if (photo.querySelector('.' + b.cls)) return;
+      var el = document.createElement('span');
+      el.className = 'hero-photo-bloom ' + b.cls;
+      el.setAttribute('aria-hidden', 'true');
+      el.style.setProperty('--bloom-delay', b.delay);
+      el.innerHTML = miniDaisy(b.fill, '#F5D076');
+      photo.appendChild(el);
+    });
+
+    function settle() {
+      photo.classList.add('is-settled');
+    }
+
+    if (reduce) {
+      photo.classList.add('is-static', 'is-in', 'is-settled');
+      return;
+    }
+
+    function play() {
+      if (photo.classList.contains('is-in')) return;
+      photo.classList.add('is-in');
+      if (!frame) {
+        settle();
+        return;
+      }
+      var done = false;
+      function onEnd(e) {
+        if (e && e.target !== frame) return;
+        if (done) return;
+        done = true;
+        frame.removeEventListener('animationend', onEnd);
+        settle();
+      }
+      frame.addEventListener('animationend', onEnd);
+      window.setTimeout(onEnd, 950);
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      play();
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          play();
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+    io.observe(photo);
+  })();
+
   /* Scroll-reveal + soft motion helpers (before form early-return) */
   (function scrollReveal() {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

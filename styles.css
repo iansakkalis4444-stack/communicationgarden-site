@@ -239,11 +239,17 @@ h1 {
 .hours { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
 .hours p { margin: .35rem 0 0; color: var(--muted); }
 .hero-photo {
+  position: relative;
   margin-top: 1rem;
+  overflow: visible;
+}
+.hero-photo-frame {
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--dusty);
+  transform-origin: 50% 70%;
+  will-change: transform;
 }
 .hero-photo picture,
 .hero-photo img {
@@ -253,6 +259,84 @@ h1 {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center 40%;
+}
+/* Gentle pop-in when the photo enters view */
+.hero-photo:not(.is-in):not(.is-static) .hero-photo-frame {
+  opacity: 0;
+  transform: scale(0.82) rotate(-4deg) translateY(14px);
+}
+.hero-photo.is-in:not(.is-settled) .hero-photo-frame {
+  animation: heroPhotoPop .78s cubic-bezier(.34, 1.45, .64, 1) forwards;
+}
+@keyframes heroPhotoPop {
+  0%   { opacity: 0; transform: scale(0.82) rotate(-4deg) translateY(14px); }
+  68%  { opacity: 1; transform: scale(1.045) rotate(1.6deg) translateY(-3px); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg) translateY(0); }
+}
+.hero-photo.is-settled .hero-photo-frame,
+.hero-photo.is-static .hero-photo-frame {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+/* Soft lift + wobble on hover (pointer devices) */
+@media (hover: hover) {
+  .hero-photo.is-settled .hero-photo-frame {
+    transition: transform .45s cubic-bezier(.34, 1.3, .64, 1), box-shadow .35s ease;
+  }
+  .hero-photo.is-settled:hover .hero-photo-frame,
+  .hero-photo.is-settled:focus-within .hero-photo-frame {
+    transform: translateY(-5px) rotate(-1.8deg) scale(1.02);
+    box-shadow: 0 14px 28px rgba(13, 79, 61, 0.14);
+    animation: heroPhotoWobble 1.6s ease-in-out infinite;
+  }
+}
+@keyframes heroPhotoWobble {
+  0%, 100% { transform: translateY(-5px) rotate(-1.8deg) scale(1.02); }
+  50%      { transform: translateY(-7px) rotate(1.5deg) scale(1.025); }
+}
+/* Tiny corner blooms */
+.hero-photo-bloom {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0) rotate(-24deg);
+  transform-origin: 50% 90%;
+}
+.hero-photo-bloom svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.hero-photo-bloom--tl { top: -8px; left: -6px; }
+.hero-photo-bloom--tr { top: -10px; right: -4px; }
+.hero-photo-bloom--bl { bottom: -4px; left: -8px; }
+.hero-photo-bloom--br { bottom: -6px; right: -6px; }
+.hero-photo.is-in .hero-photo-bloom {
+  animation: heroCornerBloom .62s cubic-bezier(.34, 1.55, .64, 1) forwards;
+  animation-delay: var(--bloom-delay, .28s);
+}
+.hero-photo.is-settled .hero-photo-bloom,
+.hero-photo.is-static .hero-photo-bloom {
+  opacity: .95;
+  transform: scale(1) rotate(8deg);
+  animation: none;
+}
+@keyframes heroCornerBloom {
+  0%   { opacity: 0; transform: scale(0) rotate(-24deg); }
+  70%  { opacity: 1; transform: scale(1.18) rotate(10deg); }
+  100% { opacity: .95; transform: scale(1) rotate(8deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo .hero-photo-frame {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-photo-bloom {
+    display: none;
+  }
+}
 }
 section { padding: 3rem 0; }
 .section-head { max-width: 42rem; margin-bottom: 1.6rem; }
