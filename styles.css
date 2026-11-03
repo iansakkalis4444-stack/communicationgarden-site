@@ -216,6 +216,32 @@ section { padding: 3rem 0; }
 }
 .team-card h3 { margin: 0 0 .45rem; color: var(--forest-deep); font-size: 1.12rem; }
 .team-card p { margin: 0; color: var(--muted); font-size: .93rem; }
+.team-card .team-points {
+  list-style: none;
+  margin: .85rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: .4rem;
+}
+.team-card .team-points li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.team-card .team-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .45rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sage-mid);
+}
+
 .faq details {
   background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: .9rem 1rem; margin-bottom: .7rem;
 }
