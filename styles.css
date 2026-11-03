@@ -291,6 +291,11 @@ input:focus, textarea:focus, select:focus { outline: 2px solid rgba(13,79,61,.25
 .vine-region .funding-side {
   position: relative;
   z-index: 1;
+}
+/* Keep opaque card surfaces above the vine — do not override .funding-side (forest CTA) */
+.vine-region .service,
+.vine-region .why article,
+.vine-region .funding-card {
   background: #fff;
 }
 .scroll-vine {
