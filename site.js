@@ -515,6 +515,109 @@
     photos.forEach(setupPhoto);
   })();
 
+  (function treatGardenFun() {
+    var groups = document.querySelectorAll('.treat-group');
+    var cards = document.querySelectorAll('details.treat-card');
+    if (!groups.length && !cards.length) return;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var colors = ['#E87888', '#E8C96A', '#7BA8C9', '#8FB07A'];
+
+    function miniDaisy(fill, center) {
+      return '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<g transform="translate(10 11)">' +
+        [0, 72, 144, 216, 288].map(function (deg) {
+          return '<ellipse cx="0" cy="-4.6" rx="2.2" ry="4" fill="' + fill + '" transform="rotate(' + deg + ')"/>';
+        }).join('') +
+        '<circle r="2" fill="' + (center || '#F5D076') + '"/>' +
+        '</g></svg>';
+    }
+
+    groups.forEach(function (group, i) {
+      var h2 = group.querySelector(':scope > h2');
+      if (!h2 || h2.querySelector('.treat-group-bloom')) return;
+      var bloom = document.createElement('span');
+      bloom.className = 'treat-group-bloom';
+      bloom.setAttribute('aria-hidden', 'true');
+      bloom.innerHTML = miniDaisy(colors[i % colors.length]);
+      h2.appendChild(bloom);
+      if (reduce) {
+        group.classList.add('is-in');
+        return;
+      }
+      if (!('IntersectionObserver' in window)) {
+        group.classList.add('is-in');
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            group.classList.add('is-in');
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      io.observe(group);
+    });
+
+    function burstAt(x, y) {
+      if (reduce) return;
+      var layer = document.createElement('div');
+      layer.className = 'treat-burst';
+      layer.setAttribute('aria-hidden', 'true');
+      layer.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+      var count = 8;
+      for (var i = 0; i < count; i++) {
+        var petal = document.createElement('span');
+        petal.className = 'treat-burst-petal';
+        var angle = (-Math.PI / 2) + (i * (Math.PI * 2 / count)) + (Math.random() * 0.35 - 0.17);
+        var dist = 28 + Math.random() * 42;
+        var dx = Math.cos(angle) * dist;
+        var dy = Math.sin(angle) * dist - (8 + Math.random() * 18);
+        petal.style.setProperty('--dx', dx.toFixed(1) + 'px');
+        petal.style.setProperty('--dy', dy.toFixed(1) + 'px');
+        petal.style.setProperty('--rot', (Math.random() * 140 - 70).toFixed(1) + 'deg');
+        petal.style.setProperty('--sc', (0.75 + Math.random() * 0.55).toFixed(2));
+        petal.style.setProperty('--burst-delay', (i * 0.018).toFixed(3) + 's');
+        petal.innerHTML = miniDaisy(colors[i % colors.length]);
+        layer.appendChild(petal);
+      }
+      document.body.appendChild(layer);
+      var done = 0;
+      function cleanup() {
+        done += 1;
+        if (done < count) return;
+        if (layer.parentNode) layer.parentNode.removeChild(layer);
+      }
+      layer.querySelectorAll('.treat-burst-petal').forEach(function (petal) {
+        petal.addEventListener('animationend', cleanup);
+      });
+      window.setTimeout(function () {
+        if (layer.parentNode) layer.parentNode.removeChild(layer);
+      }, 1100);
+    }
+
+    cards.forEach(function (card, idx) {
+      var summary = card.querySelector(':scope > summary');
+      if (!summary) return;
+      if (!summary.querySelector('.treat-bloom')) {
+        var bloom = document.createElement('span');
+        bloom.className = 'treat-bloom';
+        bloom.setAttribute('aria-hidden', 'true');
+        bloom.innerHTML = miniDaisy(colors[idx % colors.length]);
+        summary.insertBefore(bloom, summary.firstChild);
+      }
+
+      card.addEventListener('toggle', function () {
+        if (!card.open) return;
+        var rect = summary.getBoundingClientRect();
+        var x = rect.left + Math.min(36, rect.width * 0.18);
+        var y = rect.top + rect.height * 0.5;
+        burstAt(x, y);
+      });
+    });
+  })();
+
   /* Scroll-reveal + soft motion helpers (before form early-return) */
   (function scrollReveal() {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

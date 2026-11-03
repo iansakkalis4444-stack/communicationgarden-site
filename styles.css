@@ -292,6 +292,32 @@ h1 {
 .fun-photo--team {
   margin-top: 0;
 }
+.fun-photo--side {
+  margin-top: 1rem;
+  max-width: 380px;
+}
+.fun-photo--side.fun-photo--landscape picture,
+.fun-photo--side.fun-photo--landscape img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 28%;
+}
+.fun-photo--side.fun-photo--portrait {
+  max-width: 280px;
+}
+.fun-photo--side.fun-photo--portrait picture,
+.fun-photo--side.fun-photo--portrait img {
+  aspect-ratio: 3 / 4;
+  max-height: 240px;
+  object-fit: cover;
+  object-position: center 12%;
+}
+@media (max-width: 819px) {
+  .fun-photo--side,
+  .fun-photo--side.fun-photo--portrait {
+    max-width: min(280px, 100%);
+  }
+}
 /* Gentle pop-in when the photo enters view */
 .fun-photo:not(.is-in):not(.is-static) .fun-photo-frame,
 .hero-photo:not(.is-in):not(.is-static) .hero-photo-frame {
@@ -1392,6 +1418,137 @@ body {
     transition: none !important;
   }
   .treat-card[open] .treat-plus { transform: none; }
+}
+
+
+/* What we treat - playful blooms */
+.treat-group > h2 {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+}
+.treat-group-bloom {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  opacity: 0;
+  transform: scale(0.4) rotate(-28deg);
+  transform-origin: 50% 90%;
+  transition: opacity .45s ease, transform .55s cubic-bezier(.34, 1.55, .64, 1);
+}
+.treat-group-bloom svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.treat-group.is-in .treat-group-bloom {
+  opacity: .95;
+  transform: scale(1) rotate(8deg);
+}
+@media (hover: hover) and (pointer: fine) {
+  .treat-group.is-in:hover .treat-group-bloom {
+    animation: treatBloomWiggle 1.2s ease-in-out infinite;
+  }
+}
+.treat-card > summary {
+  position: relative;
+}
+.treat-bloom {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-right: .15rem;
+  opacity: .55;
+  transform: scale(0.72) rotate(-18deg);
+  transform-origin: 50% 90%;
+  transition: transform .42s cubic-bezier(.34, 1.45, .64, 1), opacity .3s ease;
+  pointer-events: none;
+}
+.treat-bloom svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.treat-card[open] .treat-bloom {
+  opacity: 1;
+  transform: scale(1.08) rotate(10deg);
+}
+@keyframes treatBloomWiggle {
+  0%, 100% { transform: scale(1.05) rotate(8deg); }
+  50% { transform: scale(1.12) rotate(-6deg); }
+}
+@keyframes treatBloomWiggleClosed {
+  0%, 100% { transform: scale(0.78) rotate(-12deg); }
+  50% { transform: scale(0.88) rotate(8deg); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .treat-card:not([open]):hover .treat-bloom {
+    animation: treatBloomWiggleClosed 1.15s ease-in-out infinite;
+  }
+  .treat-card[open]:hover .treat-bloom {
+    animation: treatBloomWiggle 1.15s ease-in-out infinite;
+  }
+}
+.treat-burst {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: 80;
+  pointer-events: none;
+  overflow: visible;
+}
+.treat-burst-petal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: treatBurstFly .78s cubic-bezier(.22, 1, .36, 1) forwards;
+  animation-delay: var(--burst-delay, 0s);
+}
+.treat-burst-petal svg { width: 100%; height: 100%; display: block; overflow: visible; }
+@keyframes treatBurstFly {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.35) rotate(0deg);
+  }
+  18% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0) scale(var(--sc, 1)) rotate(var(--rot));
+  }
+}
+.treat-body {
+  position: relative;
+}
+.treat-card[open] .treat-body::before {
+  content: "";
+  position: absolute;
+  left: .55rem;
+  top: .1rem;
+  bottom: 1.1rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(143, 176, 122, .55), rgba(232, 120, 136, .25));
+  transform-origin: top center;
+  animation: treatStemGrow .55s cubic-bezier(.22, 1, .36, 1) both;
+}
+@keyframes treatStemGrow {
+  from { transform: scaleY(0); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .treat-group-bloom,
+  .treat-bloom {
+    opacity: .9 !important;
+    transform: scale(1) rotate(8deg) !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .treat-burst { display: none !important; }
+  .treat-card[open] .treat-body::before {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 /* Slightly tighter primary nav so "What we treat" fits */
