@@ -261,10 +261,24 @@ input:focus, textarea:focus, select:focus { outline: 2px solid rgba(13,79,61,.25
 .gf-center { stroke: var(--rose); stroke-width: 1.1; fill: none; }
 .grow-flower.is-static .gf-path { stroke-dashoffset: 0; }
 @media (max-width: 820px) {
-  .section-bloom { display: none; }
+  /* Compact flower between sections — visible on phones, does not cover copy */
+  .section-bloom {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: .55rem 0 .2rem;
+    min-height: 88px;
+  }
+  .grow-flower {
+    width: 28px;
+    height: 82px;
+    opacity: .68;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
+  .section-bloom { display: flex; }
   .gf-path { stroke-dashoffset: 0; }
+  .grow-flower.is-static .gf-path { stroke-dashoffset: 0; }
 }
 
 /* Maps — subtle, on-brand */

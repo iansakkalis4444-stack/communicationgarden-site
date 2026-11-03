@@ -8,7 +8,7 @@
     });
   }
 
-  /* Subtle scroll-draw flower (~1KB) */
+  /* Subtle scroll-draw flower (~1.5KB); works on iOS Safari + mobile */
   (function growFlower() {
     var svg = document.querySelector('.grow-flower');
     if (!svg) return;
@@ -40,10 +40,10 @@
     var ticking = false;
     function measure() {
       var rect = svg.getBoundingClientRect();
-      var vh = window.innerHeight || 1;
+      var vh = window.innerHeight || (document.documentElement && document.documentElement.clientHeight) || 1;
       /* draw as flower enters lower viewport → settles mid */
       var start = vh * 0.92;
-      var end = vh * 0.38;
+      var end = vh * 0.42;
       var p = (start - rect.top) / (start - end);
       if (p < 0) p = 0; else if (p > 1) p = 1;
       setProgress(p);
@@ -55,8 +55,25 @@
         requestAnimationFrame(measure);
       }
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
+    var scrollOpts = { passive: true, capture: false };
+    window.addEventListener('scroll', onScroll, scrollOpts);
+    document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('touchmove', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', onScroll, { passive: true });
+      window.visualViewport.addEventListener('scroll', onScroll, { passive: true });
+    }
+    /* IntersectionObserver fallback: drives progress when scroll events are sparse (iOS) */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function () { onScroll(); }, {
+        root: null,
+        rootMargin: '0px 0px 0px 0px',
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+      });
+      var bloom = document.querySelector('.section-bloom') || svg;
+      io.observe(bloom);
+    }
     measure();
   })();
 
