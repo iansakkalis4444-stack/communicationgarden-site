@@ -8,6 +8,47 @@
     });
   }
 
+  /* Desktop "What we treat" dropdown: hover/focus via CSS; click toggles; Esc / outside closes */
+  (function navDropdown() {
+    var item = document.querySelector('.nav-desktop .has-dropdown');
+    if (!item) return;
+    var trigger = item.querySelector('.nav-dropdown-trigger');
+    var menu = item.querySelector('.nav-dropdown');
+    if (!trigger || !menu) return;
+
+    function setOpen(open) {
+      item.classList.toggle('is-open', !!open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    trigger.addEventListener('click', function (e) {
+      /* First click/tap opens; when already open, follow the link to /what-we-treat/ */
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
+      if (trigger.getAttribute('aria-expanded') !== 'true') {
+        e.preventDefault();
+        setOpen(true);
+      }
+    });
+
+    item.addEventListener('mouseenter', function () { setOpen(true); });
+    item.addEventListener('mouseleave', function () { setOpen(false); });
+
+    document.addEventListener('click', function (e) {
+      if (!item.contains(e.target)) setOpen(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        trigger.focus();
+      }
+    });
+
+    item.addEventListener('focusout', function (e) {
+      if (!item.contains(e.relatedTarget)) setOpen(false);
+    });
+  })();
+
   /* Subtle scroll-draw flower (~1.5KB); works on iOS Safari + mobile */
   (function growFlower() {
     var svg = document.querySelector('.grow-flower');
@@ -370,7 +411,7 @@
     }
 
     var sels = [
-      '.nav-desktop a',
+      '.nav-desktop > ul > li > a',
       '.nav-cta.desktop-only',
       '.hero .btn',
       '.cta-final .btn',
