@@ -283,18 +283,37 @@ input:focus, textarea:focus, select:focus { outline: 2px solid rgba(13,79,61,.25
 
 
 /* Scroll-draw side vine (homepage, decorative) */
-.vine-region { position: relative; }
+.vine-region { position: relative; overflow: visible; }
 .vine-region > section { position: relative; z-index: 1; }
+.vine-region .service,
+.vine-region .why article,
+.vine-region .funding-card,
+.vine-region .funding-side {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
 .scroll-vine {
   position: absolute;
-  left: max(0px, calc((100% - var(--max)) / 2 - 4.5rem));
-  top: 0.5rem;
-  bottom: 1rem;
-  width: 7.5rem;
+  top: 0.25rem;
+  bottom: 0.5rem;
   pointer-events: none;
   z-index: 0;
   overflow: visible;
-  opacity: 0.55;
+}
+.scroll-vine--left {
+  left: max(0.2rem, calc((100% - var(--max)) / 2 - 7.25rem));
+  width: 10rem;
+  opacity: 0.72;
+}
+.scroll-vine--right {
+  display: none;
+  right: max(0.2rem, calc((100% - var(--max)) / 2 - 5.5rem));
+  left: auto;
+  width: 7.25rem;
+  top: 8%;
+  bottom: 22%;
+  opacity: 0.48;
 }
 .grow-vine {
   display: block;
@@ -309,46 +328,114 @@ input:focus, textarea:focus, select:focus { outline: 2px solid rgba(13,79,61,.25
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
 }
-.gv-stem { stroke: var(--forest); stroke-width: 1.45; opacity: 0.9; }
-.gv-leaf-path { stroke: var(--sage-dark); stroke-width: 1.2; }
-.gv-bloom, .gv-petal { stroke: var(--rose); stroke-width: 1.35; }
-.gv-center { stroke: var(--rose); stroke-width: 1.15; }
+.gv-stem {
+  stroke: var(--forest);
+  stroke-width: 2.35;
+  opacity: 0.88;
+  vector-effect: non-scaling-stroke;
+}
+.gv-leaf-fill {
+  fill: var(--sage-mid);
+  fill-opacity: 0;
+  stroke: none;
+}
+.gv-leaf-path {
+  stroke: var(--sage-dark);
+  stroke-width: 1.85;
+  vector-effect: non-scaling-stroke;
+}
 .gv-leaf, .gv-bloom-g {
   transform-box: fill-box;
   transform-origin: center;
   opacity: 0;
-  transform: scale(0.55);
+  transform: scale(0.45);
 }
-.grow-vine.is-static .gv-path { stroke-dashoffset: 0; }
-.grow-vine.is-static .gv-leaf,
-.grow-vine.is-static .gv-bloom-g {
+.gv-end-bloom {
+  position: absolute;
+  left: 50%;
+  bottom: -0.35rem;
+  width: 112px;
+  height: 112px;
+  transform: translateX(-50%) scale(0.35);
+  transform-origin: center bottom;
+  opacity: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.gv-bloom, .gv-petal {
+  stroke: var(--rose);
+  stroke-width: 2.15;
+}
+.gv-center {
+  stroke: var(--rose);
+  stroke-width: 1.9;
+}
+.gv-bloom-fill {
+  fill: var(--rose);
+  fill-opacity: 0;
+  stroke: none;
+}
+.grow-vine.is-static .gv-path,
+.gv-end-bloom.is-static .gv-path { stroke-dashoffset: 0; }
+.grow-vine.is-static .gv-leaf {
   opacity: 1;
   transform: scale(1);
 }
-@media (max-width: 1100px) {
-  .scroll-vine {
-    left: 0.15rem;
-    width: 4.6rem;
-    opacity: 0.42;
+.grow-vine.is-static .gv-leaf-fill { fill-opacity: 0.32; }
+.gv-end-bloom.is-static {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.gv-end-bloom.is-static .gv-bloom-fill { fill-opacity: 0.22; }
+.gv-end-bloom.is-static .gv-bloom-g { opacity: 1; transform: scale(1); }
+
+@media (min-width: 1200px) {
+  .scroll-vine--right { display: block; }
+  .scroll-vine--left {
+    left: max(0.35rem, calc((100% - var(--max)) / 2 - 7.5rem));
+    width: 10.5rem;
+    opacity: 0.78;
   }
 }
-@media (max-width: 820px) {
-  /* Narrow edge vine — sits in page gutter, does not crowd cards */
-  .scroll-vine {
-    left: -0.15rem;
-    width: 2.85rem;
-    opacity: 0.38;
-    top: 0.25rem;
-    bottom: 0.5rem;
+@media (max-width: 1199px) {
+  .scroll-vine--left {
+    left: 0.2rem;
+    width: 5.5rem;
+    opacity: 0.62;
   }
-  .gv-stem { stroke-width: 1.2; }
-  .gv-leaf-path { stroke-width: 1.05; }
-  .gv-bloom, .gv-petal { stroke-width: 1.15; }
+  .gv-end-bloom { width: 84px; height: 84px; }
+}
+@media (max-width: 820px) {
+  /* Narrow edge vine — visible leaves, stays behind opaque cards */
+  .scroll-vine--left {
+    left: -0.1rem;
+    width: 1.85rem; /* ~30px */
+    opacity: 0.7;
+    top: 0.15rem;
+    bottom: 0.35rem;
+  }
+  .gv-stem { stroke-width: 2.1; }
+  .gv-leaf-path { stroke-width: 1.6; }
+  .gv-end-bloom {
+    width: 56px;
+    height: 56px;
+    left: 0.15rem;
+    transform: translateX(0) scale(0.35);
+  }
+  .gv-end-bloom.is-static { transform: translateX(0) scale(1); }
 }
 @media (prefers-reduced-motion: reduce) {
   .gv-path { stroke-dashoffset: 0; }
-  .gv-leaf, .gv-bloom-g { opacity: 1; transform: scale(1); }
+  .gv-leaf { opacity: 1; transform: scale(1); }
+  .gv-leaf-fill { fill-opacity: 0.32; }
+  .gv-end-bloom {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  .gv-bloom-fill { fill-opacity: 0.22; }
+  .gv-bloom-g { opacity: 1; transform: scale(1); }
 }
+
 
 /* Maps — subtle, on-brand */
 .map-frame {

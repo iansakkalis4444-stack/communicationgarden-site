@@ -78,22 +78,26 @@
   })();
 
 
-  /* Larger side vine: stem draws, leaves bloom in sequence (~2KB) */
+  /* Larger side vine: stem draws, leaves + bloom open in sequence */
   (function growVine() {
-    var svg = document.querySelector('.grow-vine');
     var region = document.querySelector('.vine-region');
-    if (!svg || !region) return;
+    if (!region) return;
+    var vines = region.querySelectorAll('.grow-vine');
+    var bloom = region.querySelector('.gv-end-bloom');
+    if (!vines.length) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var stages = [
-      { sel: '.gv-stem', a: 0, b: 0.72, kind: 'path' },
-      { sel: '.gv-leaf-1', a: 0.08, b: 0.22, kind: 'leaf' },
-      { sel: '.gv-leaf-2', a: 0.2, b: 0.34, kind: 'leaf' },
-      { sel: '.gv-leaf-3', a: 0.32, b: 0.46, kind: 'leaf' },
-      { sel: '.gv-leaf-4', a: 0.44, b: 0.58, kind: 'leaf' },
-      { sel: '.gv-leaf-5', a: 0.56, b: 0.7, kind: 'leaf' },
-      { sel: '.gv-bloom-g', a: 0.68, b: 0.92, kind: 'leaf' },
-      { sel: '.gv-bloom', a: 0.7, b: 0.92, kind: 'path' },
-      { sel: '.gv-petal', a: 0.78, b: 0.96, kind: 'paths' },
+    var leafStages = [
+      { sel: '.gv-leaf-1', a: 0.06, b: 0.18 },
+      { sel: '.gv-leaf-2', a: 0.16, b: 0.28 },
+      { sel: '.gv-leaf-3', a: 0.26, b: 0.38 },
+      { sel: '.gv-leaf-4', a: 0.36, b: 0.48 },
+      { sel: '.gv-leaf-5', a: 0.46, b: 0.58 },
+      { sel: '.gv-leaf-6', a: 0.56, b: 0.68 },
+      { sel: '.gv-leaf-7', a: 0.64, b: 0.76 }
+    ];
+    var bloomStages = [
+      { sel: '.gv-bloom', a: 0.72, b: 0.9, kind: 'path' },
+      { sel: '.gv-petal', a: 0.78, b: 0.95, kind: 'paths' },
       { sel: '.gv-center', a: 0.9, b: 1, kind: 'path' }
     ];
     function clamp01(t) {
@@ -101,33 +105,65 @@
       if (t > 1) return 1;
       return t;
     }
+    function setLeaf(g, t) {
+      g.style.opacity = String(t);
+      g.style.transform = 'scale(' + (0.45 + t * 0.55) + ')';
+      var fill = g.querySelector('.gv-leaf-fill');
+      if (fill) fill.style.fillOpacity = String(0.3 * t);
+      var lp = g.querySelectorAll('.gv-path');
+      for (var j = 0; j < lp.length; j++) {
+        lp[j].style.strokeDashoffset = String(100 - t * 100);
+      }
+    }
     function setProgress(p) {
-      for (var i = 0; i < stages.length; i++) {
-        var s = stages[i];
-        var t = clamp01((p - s.a) / (s.b - s.a));
-        if (s.kind === 'leaf') {
-          var g = svg.querySelector(s.sel);
+      var i, s, t, el, nodes, k, g;
+      for (var v = 0; v < vines.length; v++) {
+        var svg = vines[v];
+        var stem = svg.querySelector('.gv-stem');
+        if (stem) {
+          /* Stem finishes a bit before the bloom so growth reads clearly while scrolling */
+          t = clamp01(p / 0.78);
+          stem.style.strokeDashoffset = String(100 - t * 100);
+        }
+        for (i = 0; i < leafStages.length; i++) {
+          s = leafStages[i];
+          g = svg.querySelector(s.sel);
           if (!g) continue;
-          g.style.opacity = String(0.12 + t * 0.88);
-          g.style.transform = 'scale(' + (0.55 + t * 0.45) + ')';
-          var lp = g.querySelectorAll('.gv-path');
-          for (var j = 0; j < lp.length; j++) {
-            lp[j].style.strokeDashoffset = String(100 - t * 100);
+          setLeaf(g, clamp01((p - s.a) / (s.b - s.a)));
+        }
+      }
+      if (bloom) {
+        var bt = clamp01((p - 0.7) / 0.3);
+        var isMobile = window.matchMedia('(max-width: 820px)').matches;
+        bloom.style.opacity = String(bt);
+        bloom.style.transform = isMobile
+          ? ('translateX(0) scale(' + (0.35 + bt * 0.65) + ')')
+          : ('translateX(-50%) scale(' + (0.35 + bt * 0.65) + ')');
+        var bg = bloom.querySelector('.gv-bloom-g');
+        if (bg) {
+          bg.style.opacity = String(bt);
+          bg.style.transform = 'scale(' + (0.5 + bt * 0.5) + ')';
+        }
+        var bf = bloom.querySelector('.gv-bloom-fill');
+        if (bf) bf.style.fillOpacity = String(0.22 * bt);
+        for (i = 0; i < bloomStages.length; i++) {
+          s = bloomStages[i];
+          t = clamp01((p - s.a) / (s.b - s.a));
+          if (s.kind === 'paths') {
+            nodes = bloom.querySelectorAll(s.sel);
+            for (k = 0; k < nodes.length; k++) {
+              nodes[k].style.strokeDashoffset = String(100 - t * 100);
+            }
+          } else {
+            el = bloom.querySelector(s.sel);
+            if (el) el.style.strokeDashoffset = String(100 - t * 100);
           }
-        } else if (s.kind === 'paths') {
-          var nodes = svg.querySelectorAll(s.sel);
-          for (var k = 0; k < nodes.length; k++) {
-            nodes[k].style.strokeDashoffset = String(100 - t * 100);
-          }
-        } else {
-          var el = svg.querySelector(s.sel);
-          if (!el) continue;
-          el.style.strokeDashoffset = String(100 - t * 100);
         }
       }
     }
     if (reduce) {
-      svg.classList.add('is-static');
+      for (var r = 0; r < vines.length; r++) vines[r].classList.add('is-static');
+      if (bloom) bloom.classList.add('is-static');
       setProgress(1);
       return;
     }
@@ -135,9 +171,9 @@
     function measure() {
       var rect = region.getBoundingClientRect();
       var vh = window.innerHeight || (document.documentElement && document.documentElement.clientHeight) || 1;
-      /* Start as region enters lower viewport; finish as most of it has scrolled through */
-      var start = vh * 0.88;
-      var end = vh * 0.18 - Math.min(rect.height * 0.55, vh * 1.1);
+      /* Map so stem visibly grows while the region moves through the viewport */
+      var start = vh * 0.82;
+      var end = vh * 0.2 - rect.height * 0.72;
       var p = (start - rect.top) / (start - end);
       setProgress(clamp01(p));
       ticking = false;
@@ -166,6 +202,7 @@
     }
     measure();
   })();
+
 
   var form = document.getElementById('contact-form');
   if (!form) return;
