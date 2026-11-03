@@ -6,7 +6,7 @@ Public site for [communicationgarden.ca](https://communicationgarden.ca), served
 - **Branch:** `main` (site root)
 - **Custom domain:** `communicationgarden.ca` (+ `www`)
 - **Booking:** [Jane](https://communicationgarden.janeapp.com)
-- **Contact form:** Web3Forms (replace `YOUR_ACCESS_KEY_HERE` in `site.js` with a real key); mailto/phone fallbacks remain on Contact
+- **Contact form:** Web3Forms contact form live; mailto/phone fallbacks remain on Contact
 
 ## Local preview
 
