@@ -569,3 +569,125 @@ footer a { text-decoration: none; color: var(--forest-deep); font-weight: 700; }
   .brand img { width: 56px; height: auto; }
   .hero { padding: 2rem 0 1.75rem; }
 }
+
+
+/* ===== Desktop pop-garden flowers + nav hover blooms ===== */
+:root {
+  --petal-pink: #E87888;
+  --petal-pink-soft: #F4A3AE;
+  --petal-blue: #7BA8C9;
+  --petal-blue-soft: #A9C9DE;
+  --petal-yellow: #E8C96A;
+  --petal-yellow-soft: #F3DEA0;
+  --petal-green: #8FB07A;
+  --petal-green-soft: #B5CFA5;
+  --bloom-center: #F5D076;
+}
+
+.pop-flower,
+.tab-bloom {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .hero,
+  .vine-region > section,
+  .visit-us,
+  main > section {
+    position: relative;
+  }
+
+  .pop-flower {
+    display: block;
+    position: absolute;
+    width: var(--pop-size, 38px);
+    height: var(--pop-size, 38px);
+    left: var(--pop-left, auto);
+    right: var(--pop-right, auto);
+    top: var(--pop-top, 12%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.15) rotate(var(--pop-rot, -8deg)) translateY(10px);
+    transform-origin: 50% 85%;
+    will-change: transform, opacity;
+  }
+  .pop-flower svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .pop-flower.is-in {
+    animation: popBloom .72s cubic-bezier(.34, 1.56, .64, 1) forwards,
+               popSway 3.6s ease-in-out .72s infinite;
+    animation-delay: var(--pop-delay, 0s), calc(var(--pop-delay, 0s) + .72s);
+  }
+  .pop-flower.is-static {
+    opacity: .9;
+    transform: scale(1) rotate(var(--pop-rot, 0deg));
+    animation: none;
+  }
+
+  @keyframes popBloom {
+    0%   { opacity: 0; transform: scale(0.12) rotate(calc(var(--pop-rot, -8deg) - 18deg)) translateY(14px); }
+    70%  { opacity: 1; transform: scale(1.12) rotate(calc(var(--pop-rot, -8deg) + 6deg)) translateY(-2px); }
+    100% { opacity: 1; transform: scale(1) rotate(var(--pop-rot, -8deg)) translateY(0); }
+  }
+  @keyframes popSway {
+    0%, 100% { transform: scale(1) rotate(var(--pop-rot, -8deg)) translateY(0); }
+    50%      { transform: scale(1) rotate(calc(var(--pop-rot, -8deg) + 5deg)) translateY(-2px); }
+  }
+
+  /* Hover / focus bloom on nav + primary CTAs (pointer devices only) */
+  @media (hover: hover) {
+    .nav-desktop a,
+    .nav-cta.desktop-only,
+    .btn,
+    .service > a,
+    .funding-side > a {
+      position: relative;
+    }
+    .tab-bloom {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: -0.85rem;
+      width: 18px;
+      height: 18px;
+      margin-left: -9px;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transform: scale(0) rotate(-20deg);
+      transform-origin: 50% 90%;
+      transition: transform .38s cubic-bezier(.34, 1.56, .64, 1), opacity .22s ease;
+    }
+    .tab-bloom svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .nav-desktop a:hover .tab-bloom,
+    .nav-desktop a:focus-visible .tab-bloom,
+    .nav-cta.desktop-only:hover .tab-bloom,
+    .nav-cta.desktop-only:focus-visible .tab-bloom,
+    .btn:hover .tab-bloom,
+    .btn:focus-visible .tab-bloom,
+    .service > a:hover .tab-bloom,
+    .service > a:focus-visible .tab-bloom,
+    .funding-side > a:hover .tab-bloom,
+    .funding-side > a:focus-visible .tab-bloom {
+      opacity: 1;
+      transform: scale(1) rotate(12deg);
+    }
+    /* nudge for shorter nav labels */
+    .nav-desktop a .tab-bloom { top: -0.7rem; }
+    .btn .tab-bloom { top: -0.55rem; }
+    .service > a .tab-bloom,
+    .funding-side > a .tab-bloom { top: -0.65rem; left: 0.15rem; margin-left: 0; }
+  }
+}
+
+@media (min-width: 900px) and (prefers-reduced-motion: reduce) {
+  .pop-flower {
+    opacity: .88;
+    transform: scale(1) rotate(var(--pop-rot, 0deg));
+    animation: none !important;
+  }
+  .pop-flower.is-in { animation: none !important; }
+  .tab-bloom {
+    transition: none !important;
+  }
+}

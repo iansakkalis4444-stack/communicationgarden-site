@@ -210,6 +210,176 @@
 
 
 
+
+  /* Desktop scroll-pop garden + nav/button hover blooms (no libraries) */
+  (function popGarden() {
+    var desktop = window.matchMedia('(min-width: 900px)');
+    if (!desktop.matches) return;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function daisy(fill, soft, center) {
+      return '<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<g transform="translate(20 21)">' +
+        [0,72,144,216,288].map(function (deg) {
+          return '<ellipse cx="0" cy="-9.5" rx="4.6" ry="8.2" fill="' + fill + '" stroke="' + soft + '" stroke-width="0.6" transform="rotate(' + deg + ')"/>';
+        }).join('') +
+        '<circle r="4.2" fill="' + center + '"/>' +
+        '</g></svg>';
+    }
+    function tulip(fill, soft, stem) {
+      return '<svg viewBox="0 0 32 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<path d="M16 42 C16 30 16 24 16 18" stroke="' + stem + '" stroke-width="1.7" stroke-linecap="round"/>' +
+        '<path d="M16 20 C10 18 7 12 8 6 C12 8 14 12 16 18 C18 12 20 8 24 6 C25 12 22 18 16 20 Z" fill="' + fill + '" stroke="' + soft + '" stroke-width="0.7"/>' +
+        '<path d="M16 20 C14 14 14 9 16 4 C18 9 18 14 16 20 Z" fill="' + soft + '" opacity="0.85"/>' +
+        '</svg>';
+    }
+    function bud(fill, soft, stem) {
+      return '<svg viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<path d="M14 34 C14 26 14 22 14 16" stroke="' + stem + '" stroke-width="1.5" stroke-linecap="round"/>' +
+        '<ellipse cx="14" cy="12" rx="6.2" ry="8" fill="' + fill + '" stroke="' + soft + '" stroke-width="0.7"/>' +
+        '<path d="M14 18 C9 16 7 12 8 8" stroke="' + stem + '" stroke-width="1.2" stroke-linecap="round" fill="none"/>' +
+        '</svg>';
+    }
+
+    var C = {
+      pink: ['#E87888', '#F4A3AE', '#F5D076'],
+      blue: ['#7BA8C9', '#A9C9DE', '#F5D076'],
+      yellow: ['#E8C96A', '#F3DEA0', '#E87888'],
+      green: ['#8FB07A', '#B5CFA5', '#F5D076']
+    };
+    var stem = '#57614E';
+
+    var plans = [
+      { sel: '.hero', items: [
+        { kind: 'daisy', color: 'pink', left: '0.6rem', top: '18%', size: '42px', rot: '-12deg', delay: '0.05s' },
+        { kind: 'tulip', color: 'blue', right: '1.1rem', top: '28%', size: '40px', rot: '10deg', delay: '0.18s' },
+        { kind: 'bud', color: 'yellow', left: '1.4rem', top: '62%', size: '30px', rot: '-6deg', delay: '0.28s' }
+      ]},
+      { sel: '.vine-region > section:nth-of-type(1)', items: [
+        { kind: 'daisy', color: 'green', right: '0.85rem', top: '16%', size: '36px', rot: '8deg', delay: '0.05s' },
+        { kind: 'bud', color: 'pink', left: '0.55rem', top: '48%', size: '28px', rot: '-14deg', delay: '0.16s' },
+        { kind: 'tulip', color: 'yellow', right: '1.3rem', top: '70%', size: '38px', rot: '6deg', delay: '0.26s' }
+      ]},
+      { sel: '.vine-region > section.band', items: [
+        { kind: 'daisy', color: 'blue', left: '0.7rem', top: '22%', size: '40px', rot: '-9deg', delay: '0.04s' },
+        { kind: 'tulip', color: 'pink', right: '0.9rem', top: '40%', size: '36px', rot: '12deg', delay: '0.15s' },
+        { kind: 'bud', color: 'green', left: '1.2rem', top: '72%', size: '28px', rot: '4deg', delay: '0.24s' }
+      ]},
+      { sel: '.vine-region > section:nth-of-type(3)', items: [
+        { kind: 'daisy', color: 'yellow', left: '0.5rem', top: '20%', size: '34px', rot: '-7deg', delay: '0.06s' },
+        { kind: 'bud', color: 'blue', right: '0.7rem', top: '35%', size: '26px', rot: '9deg', delay: '0.14s' },
+        { kind: 'tulip', color: 'green', right: '1.1rem', top: '68%', size: '40px', rot: '-5deg', delay: '0.22s' }
+      ]},
+      { sel: '.visit-us', items: [
+        { kind: 'daisy', color: 'pink', left: '0.55rem', top: '18%', size: '38px', rot: '7deg', delay: '0.05s' },
+        { kind: 'tulip', color: 'blue', right: '0.8rem', top: '55%', size: '36px', rot: '-10deg', delay: '0.18s' }
+      ]},
+      { sel: 'main > section:last-of-type', items: [
+        { kind: 'daisy', color: 'green', left: '1rem', top: '30%', size: '36px', rot: '-8deg', delay: '0.05s' },
+        { kind: 'bud', color: 'yellow', right: '1.2rem', top: '40%', size: '28px', rot: '11deg', delay: '0.16s' },
+        { kind: 'tulip', color: 'pink', left: '2.2rem', top: '68%', size: '34px', rot: '5deg', delay: '0.24s' }
+      ]}
+    ];
+
+    function svgFor(item) {
+      var c = C[item.color] || C.pink;
+      if (item.kind === 'tulip') return tulip(c[0], c[1], stem);
+      if (item.kind === 'bud') return bud(c[0], c[1], stem);
+      return daisy(c[0], c[1], c[2]);
+    }
+
+    var nodes = [];
+    plans.forEach(function (plan) {
+      var host = document.querySelector(plan.sel);
+      if (!host) return;
+      plan.items.forEach(function (item) {
+        var el = document.createElement('span');
+        el.className = 'pop-flower pop-flower--' + item.kind + ' pop-flower--' + item.color;
+        el.setAttribute('aria-hidden', 'true');
+        if (item.left) el.style.setProperty('--pop-left', item.left);
+        if (item.right) el.style.setProperty('--pop-right', item.right);
+        if (item.top) el.style.setProperty('--pop-top', item.top);
+        if (item.size) el.style.setProperty('--pop-size', item.size);
+        if (item.rot) el.style.setProperty('--pop-rot', item.rot);
+        if (item.delay) el.style.setProperty('--pop-delay', item.delay);
+        el.innerHTML = svgFor(item);
+        host.appendChild(el);
+        nodes.push(el);
+      });
+    });
+
+    if (!nodes.length) return;
+
+    if (reduce) {
+      nodes.forEach(function (n) { n.classList.add('is-static'); });
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach(function (n) { n.classList.add('is-in'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var section = entry.target;
+        section.querySelectorAll('.pop-flower').forEach(function (fl) {
+          if (!fl.classList.contains('is-in')) fl.classList.add('is-in');
+        });
+        io.unobserve(section);
+      });
+    }, { root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.18 });
+
+    plans.forEach(function (plan) {
+      var host = document.querySelector(plan.sel);
+      if (host) io.observe(host);
+    });
+  })();
+
+  (function hoverBlooms() {
+    var ok = window.matchMedia('(min-width: 900px) and (hover: hover)').matches;
+    if (!ok) return;
+
+    var colors = [
+      ['#E87888', '#F4A3AE', '#F5D076'],
+      ['#8FB07A', '#B5CFA5', '#F5D076'],
+      ['#7BA8C9', '#A9C9DE', '#F5D076'],
+      ['#E8C96A', '#F3DEA0', '#E87888']
+    ];
+
+    function miniDaisy(c) {
+      return '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<g transform="translate(10 11)">' +
+        [0,72,144,216,288].map(function (deg) {
+          return '<ellipse cx="0" cy="-4.6" rx="2.2" ry="4" fill="' + c[0] + '" transform="rotate(' + deg + ')"/>';
+        }).join('') +
+        '<circle r="2" fill="' + c[2] + '"/>' +
+        '</g></svg>';
+    }
+
+    var sels = [
+      '.nav-desktop a',
+      '.nav-cta.desktop-only',
+      '.hero .btn',
+      '.cta-final .btn',
+      '.service > a',
+      '.funding-side > a',
+      '.visit-us .btn'
+    ];
+    var targets = document.querySelectorAll(sels.join(','));
+    targets.forEach(function (el, i) {
+      if (el.querySelector('.tab-bloom')) return;
+      var bloom = document.createElement('span');
+      bloom.className = 'tab-bloom';
+      bloom.setAttribute('aria-hidden', 'true');
+      bloom.innerHTML = miniDaisy(colors[i % colors.length]);
+      el.appendChild(bloom);
+    });
+  })();
+
+
   var form = document.getElementById('contact-form');
   if (!form) return;
   var status = document.getElementById('form-status');
