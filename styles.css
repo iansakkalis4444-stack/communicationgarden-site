@@ -241,6 +241,32 @@ input:focus, textarea:focus, select:focus { outline: 2px solid rgba(13,79,61,.25
 .fallback-links { margin-top: .75rem; font-size: .9rem; color: var(--muted); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.25rem; align-items: start; }
 
+
+/* Scroll-draw flower (decorative, low weight) */
+.section-bloom {
+  display: flex; justify-content: center; align-items: flex-end;
+  padding: .35rem 0 .15rem; pointer-events: none;
+}
+.grow-flower { width: 42px; height: 122px; opacity: .72; overflow: visible; }
+.gf-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.gf-stem { stroke: var(--forest); stroke-width: 1.35; }
+.gf-leaf-l, .gf-leaf-r { stroke: var(--sage-dark); stroke-width: 1.2; }
+.gf-bloom { stroke: var(--rose); stroke-width: 1.35; }
+.gf-center { stroke: var(--rose); stroke-width: 1.1; fill: none; }
+.grow-flower.is-static .gf-path { stroke-dashoffset: 0; }
+@media (max-width: 820px) {
+  .section-bloom { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gf-path { stroke-dashoffset: 0; }
+}
+
 /* Maps — subtle, on-brand */
 .map-frame {
   position: relative;
