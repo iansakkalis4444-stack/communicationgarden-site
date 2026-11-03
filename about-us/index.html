@@ -48,6 +48,7 @@
         <li class="has-dropdown">
           <a href="/what-we-treat/" class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" id="nav-treat-trigger">What we treat <span class="nav-caret" aria-hidden="true"></span></a>
           <ul class="nav-dropdown" id="nav-treat-menu" aria-label="What we treat">
+            <li class="nav-dropdown-overview"><a href="/what-we-treat/">What we treat</a></li>
             <li><a href="/speech-therapy/">Speech</a></li>
             <li><a href="/occupational-therapy/">OT</a></li>
             <li><a href="/literacy-services/">Literacy</a></li>
@@ -70,6 +71,7 @@
         <li class="nav-drawer-group">
           <a href="/what-we-treat/">What we treat</a>
           <ul class="nav-drawer-nested">
+            <li class="nav-drawer-overview"><a href="/what-we-treat/">What we treat</a></li>
             <li><a href="/speech-therapy/">Speech</a></li>
             <li><a href="/occupational-therapy/">OT</a></li>
             <li><a href="/literacy-services/">Literacy</a></li>
@@ -122,35 +124,53 @@
       <p style="margin-top:1rem"><a class="btn btn-primary" href="https://communicationgarden.janeapp.com/locations/communication-garden/book" target="_blank" rel="noopener">Book online</a></p>
     </aside>
   </div>
-  <div class="wrap" style="margin-top:1.25rem">
-    <div class="card-photo card-photo--banner">
-      <img src="/assets/photo-2.jpg" alt="Warm therapy room inside Communication Garden Oakville" width="1024" height="640" loading="lazy" decoding="async">
-    </div>
-  </div>
 </section>
 <section class="band">
   <div class="wrap">
     <div class="section-head">
       <h2>Our team</h2>
-      <p>Speech-language pathologists, occupational therapists, and therapy assistants who love working with children and families.</p>
     </div>
-    <figure class="team-photo">
-      <picture>
-        <source
-          type="image/webp"
-          srcset="/assets/team-photo-800.webp 800w, /assets/team-photo-1600.webp 1600w"
-          sizes="(max-width: 720px) 100vw, min(1100px, 92vw)">
-        <img
-          src="/assets/team-photo-1600.jpg"
-          srcset="/assets/team-photo-800.jpg 800w, /assets/team-photo-1600.jpg 1600w"
-          sizes="(max-width: 720px) 100vw, min(1100px, 92vw)"
-          width="1600"
-          height="1066"
-          alt="The Communication Garden team in front of the clinic's logo wall"
-          loading="lazy"
-          decoding="async">
-      </picture>
-    </figure>
+    <div class="team-photo-row">
+      <div class="fun-photo fun-photo--team" data-fun-photo>
+        <div class="fun-photo-frame">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/team-rug-800.webp 800w, /assets/team-rug-1600.webp 1600w"
+              sizes="(max-width: 819px) 92vw, min(540px, 46vw)">
+            <img
+              src="/assets/team-rug-1600.jpg"
+              srcset="/assets/team-rug-800.jpg 800w, /assets/team-rug-1600.jpg 1600w"
+              sizes="(max-width: 819px) 92vw, min(540px, 46vw)"
+              width="1600"
+              height="1067"
+              alt="The Communication Garden team in the clinic"
+              loading="lazy"
+              decoding="async">
+          </picture>
+        </div>
+      </div>
+      <div class="fun-photo fun-photo--team" data-fun-photo>
+        <div class="fun-photo-frame">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/team-photo-800.webp 800w, /assets/team-photo-1600.webp 1600w"
+              sizes="(max-width: 819px) 92vw, min(540px, 46vw)">
+            <img
+              src="/assets/team-photo-1600.jpg"
+              srcset="/assets/team-photo-800.jpg 800w, /assets/team-photo-1600.jpg 1600w"
+              sizes="(max-width: 819px) 92vw, min(540px, 46vw)"
+              width="1600"
+              height="1066"
+              alt="The Communication Garden team in the clinic"
+              loading="lazy"
+              decoding="async">
+          </picture>
+        </div>
+      </div>
+    </div>
+    <p class="team-lead" style="margin:0 0 1.5rem;color:var(--muted);max-width:42rem">Speech-language pathologists, occupational therapists, and therapy assistants who love working with children and families.</p>
     <div class="team-grid">
       <article class="team-card">
         <span class="role">Speech-Language Pathologist</span>
