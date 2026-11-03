@@ -1,4 +1,4 @@
-# Communication Garden — production static site
+# Communication Garden - production static site
 
 Public site for [communicationgarden.ca](https://communicationgarden.ca), served from GitHub Pages.
 
