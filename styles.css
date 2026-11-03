@@ -49,7 +49,12 @@ a:hover { color: var(--slate-dark); }
   padding: .7rem 0;
 }
 .brand { display: flex; align-items: center; gap: .75rem; text-decoration: none; color: inherit; }
-.brand img { width: 58px; height: auto; }
+.brand img {
+  width: 64px; height: auto; max-height: none;
+  object-fit: contain; object-position: center top;
+  flex-shrink: 0; display: block;
+}
+.topbar, .topbar-inner, .brand { overflow: visible; }
 .brand-name {
   font-family: "Source Serif 4", Georgia, serif;
   font-weight: 600; font-size: 1.02rem; color: var(--forest-deep); line-height: 1.15;
@@ -254,6 +259,6 @@ footer a { text-decoration: none; color: var(--forest-deep); font-weight: 700; }
   .hero-grid, .why, .funding, .grid-2, .grid-3, .team-grid, .form-row, .services, .footer-grid, .contact-grid { grid-template-columns: 1fr; }
   .nav-desktop, .nav-cta.desktop-only { display: none; }
   .menu-toggle { display: inline-flex; }
-  .brand img { width: 48px; }
+  .brand img { width: 56px; height: auto; }
   .hero { padding: 2rem 0 1.75rem; }
 }
