@@ -108,76 +108,85 @@
 
 <div class="vine-region">
   <div class="scroll-vine scroll-vine--left" aria-hidden="true">
-    <svg class="grow-vine" viewBox="0 0 200 1600" width="200" height="1600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <!-- Stem grows top → bottom toward the bloom -->
-      <path class="gv-path gv-stem" pathLength="100" d="M100 36 C 48 140, 168 240, 72 360 C 18 460, 178 560, 88 700 C 28 800, 162 920, 100 1040 C 62 1120, 138 1220, 100 1320"/>
-      <!-- 7 leaves with soft fill + outline -->
-      <g class="gv-leaf gv-leaf-1">
-        <path class="gv-leaf-fill" d="M92 168 C 58 156, 34 122, 42 86 C 64 96, 86 132, 94 158 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M92 168 C 58 156, 34 122, 42 86 C 64 96, 86 132, 94 158 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-2">
-        <path class="gv-leaf-fill" d="M118 290 C 158 274, 186 232, 176 188 C 150 202, 126 244, 118 278 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M118 290 C 158 274, 186 232, 176 188 C 150 202, 126 244, 118 278 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-3">
-        <path class="gv-leaf-fill" d="M78 430 C 40 416, 16 372, 28 326 C 52 340, 74 386, 80 418 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M78 430 C 40 416, 16 372, 28 326 C 52 340, 74 386, 80 418 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-4">
-        <path class="gv-leaf-fill" d="M128 575 C 170 556, 198 508, 186 458 C 158 474, 136 522, 128 560 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M128 575 C 170 556, 198 508, 186 458 C 158 474, 136 522, 128 560 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-5">
-        <path class="gv-leaf-fill" d="M72 740 C 32 724, 8 676, 22 626 C 48 642, 70 692, 74 726 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M72 740 C 32 724, 8 676, 22 626 C 48 642, 70 692, 74 726 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-6">
-        <path class="gv-leaf-fill" d="M130 900 C 172 882, 200 830, 186 778 C 158 796, 138 848, 130 886 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M130 900 C 172 882, 200 830, 186 778 C 158 796, 138 848, 130 886 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-7">
-        <path class="gv-leaf-fill" d="M82 1105 C 42 1088, 16 1038, 30 986 C 56 1004, 78 1056, 84 1090 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M82 1105 C 42 1088, 16 1038, 30 986 C 56 1004, 78 1056, 84 1090 Z"/>
-      </g>
+    <svg class="grow-vine gv-stem-svg" viewBox="0 0 40 1600" width="40" height="1600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path class="gv-path gv-stem" pathLength="100" d="M22 20 C 8 160, 34 280, 12 420 C 2 540, 36 660, 16 820 C 4 960, 32 1100, 18 1240 C 10 1340, 28 1460, 20 1560"/>
     </svg>
-    <!-- Circular bloom kept unstretched so it reads ~100px -->
-    <svg class="gv-end-bloom" viewBox="0 0 120 120" width="112" height="112" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <div class="gv-leaf gv-leaf-1 gv-leaf-sprite gv-leaf-sprite--left" style="top:8%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-2 gv-leaf-sprite gv-leaf-sprite--right" style="top:18%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-3 gv-leaf-sprite gv-leaf-sprite--left" style="top:30%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-4 gv-leaf-sprite gv-leaf-sprite--right" style="top:42%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-5 gv-leaf-sprite gv-leaf-sprite--left" style="top:54%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-6 gv-leaf-sprite gv-leaf-sprite--right" style="top:66%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-7 gv-leaf-sprite gv-leaf-sprite--left" style="top:76%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+    <svg class="gv-end-bloom" viewBox="0 0 120 120" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <g class="gv-bloom-g">
-        <path class="gv-path gv-bloom" pathLength="100" d="M60 98 C 42 82, 18 74, 14 48 C 34 46, 48 62, 60 28 C 72 62, 86 46, 106 48 C 102 74, 78 82, 60 98 Z"/>
-        <path class="gv-path gv-petal" pathLength="100" d="M60 86 C 40 70, 34 48, 42 30 C 50 44, 56 64, 60 86"/>
-        <path class="gv-path gv-petal" pathLength="100" d="M60 86 C 80 70, 86 48, 78 30 C 70 44, 64 64, 60 86"/>
-        <path class="gv-path gv-petal" pathLength="100" d="M60 90 C 48 78, 28 78, 22 60 C 36 60, 50 72, 60 90"/>
-        <path class="gv-path gv-petal" pathLength="100" d="M60 90 C 72 78, 92 78, 98 60 C 84 60, 70 72, 60 90"/>
-        <circle class="gv-path gv-center" pathLength="100" cx="60" cy="64" r="9"/>
-        <circle class="gv-bloom-fill" cx="60" cy="64" r="22"/>
+        <circle class="gv-bloom-fill" cx="60" cy="62" r="28"/>
+        <path class="gv-path gv-bloom" pathLength="100" d="M60 104 C 40 86, 14 76, 10 46 C 32 44, 46 62, 60 18 C 74 62, 88 44, 110 46 C 106 76, 80 86, 60 104 Z"/>
+        <path class="gv-path gv-petal" pathLength="100" d="M60 92 C 38 74, 30 50, 40 28 C 48 44, 54 68, 60 92"/>
+        <path class="gv-path gv-petal" pathLength="100" d="M60 92 C 82 74, 90 50, 80 28 C 72 44, 66 68, 60 92"/>
+        <path class="gv-path gv-petal" pathLength="100" d="M60 96 C 46 82, 24 82, 16 60 C 32 60, 48 76, 60 96"/>
+        <path class="gv-path gv-petal" pathLength="100" d="M60 96 C 74 82, 96 82, 104 60 C 88 60, 72 76, 60 96"/>
+        <circle class="gv-path gv-center" pathLength="100" cx="60" cy="62" r="10"/>
       </g>
     </svg>
   </div>
   <div class="scroll-vine scroll-vine--right" aria-hidden="true">
-    <svg class="grow-vine grow-vine--mirror" viewBox="0 0 160 1000" width="160" height="1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path class="gv-path gv-stem" pathLength="100" d="M80 20 C 130 110, 28 200, 108 320 C 160 410, 36 510, 92 640 C 128 720, 48 820, 80 920"/>
-      <g class="gv-leaf gv-leaf-1">
-        <path class="gv-leaf-fill" d="M96 140 C 128 128, 148 98, 140 68 C 120 78, 102 108, 96 132 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M96 140 C 128 128, 148 98, 140 68 C 120 78, 102 108, 96 132 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-2">
-        <path class="gv-leaf-fill" d="M64 310 C 28 296, 10 258, 22 218 C 44 230, 60 268, 66 298 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M64 310 C 28 296, 10 258, 22 218 C 44 230, 60 268, 66 298 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-3">
-        <path class="gv-leaf-fill" d="M108 500 C 142 484, 162 444, 150 402 C 128 416, 112 456, 108 486 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M108 500 C 142 484, 162 444, 150 402 C 128 416, 112 456, 108 486 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-4">
-        <path class="gv-leaf-fill" d="M70 700 C 34 684, 14 642, 26 598 C 48 612, 66 654, 72 688 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M70 700 C 34 684, 14 642, 26 598 C 48 612, 66 654, 72 688 Z"/>
-      </g>
-      <g class="gv-leaf gv-leaf-5">
-        <path class="gv-leaf-fill" d="M100 860 C 132 846, 150 810, 140 772 C 120 784, 106 820, 100 848 Z"/>
-        <path class="gv-path gv-leaf-path" pathLength="100" d="M100 860 C 132 846, 150 810, 140 772 C 120 784, 106 820, 100 848 Z"/>
-      </g>
+    <svg class="grow-vine gv-stem-svg" viewBox="0 0 40 1000" width="40" height="1000" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path class="gv-path gv-stem" pathLength="100" d="M20 16 C 32 120, 8 240, 28 360 C 36 460, 10 560, 24 680 C 32 780, 12 880, 20 960"/>
     </svg>
+      <div class="gv-leaf gv-leaf-1 gv-leaf-sprite gv-leaf-sprite--right" style="top:12%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-2 gv-leaf-sprite gv-leaf-sprite--left" style="top:28%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-3 gv-leaf-sprite gv-leaf-sprite--right" style="top:46%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-4 gv-leaf-sprite gv-leaf-sprite--left" style="top:64%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
+      <div class="gv-leaf gv-leaf-5 gv-leaf-sprite gv-leaf-sprite--right" style="top:80%"><svg viewBox="0 0 36 48" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="gv-leaf-fill" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+  <path class="gv-path gv-leaf-path" pathLength="100" d="M18 44 C 2 34, -2 14, 10 2 C 16 12, 20 28, 22 40 Z"/>
+</svg>
+      </div>
   </div>
 <section>
   <div class="wrap">
