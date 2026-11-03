@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://communicationgarden.ca/</loc></url>
-  <url><loc>https://communicationgarden.ca/about-us/</loc></url>
-  <url><loc>https://communicationgarden.ca/what-we-treat/</loc></url>
-  <url><loc>https://communicationgarden.ca/speech-therapy/</loc></url>
-  <url><loc>https://communicationgarden.ca/occupational-therapy/</loc></url>
-  <url><loc>https://communicationgarden.ca/literacy-services/</loc></url>
-  <url><loc>https://communicationgarden.ca/social-groups/</loc></url>
-  <url><loc>https://communicationgarden.ca/speech-therapy-oakville-faq/</loc></url>
-  <url><loc>https://communicationgarden.ca/oap-funding/</loc></url>
-  <url><loc>https://communicationgarden.ca/careers/</loc></url>
-  <url><loc>https://communicationgarden.ca/contact/</loc></url>
+  <url><loc>https://communicationgarden.ca/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://communicationgarden.ca/about-us/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://communicationgarden.ca/what-we-treat/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://communicationgarden.ca/speech-therapy/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://communicationgarden.ca/occupational-therapy/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://communicationgarden.ca/literacy-services/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://communicationgarden.ca/social-groups/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://communicationgarden.ca/speech-therapy-oakville-faq/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://communicationgarden.ca/oap-funding/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://communicationgarden.ca/careers/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://communicationgarden.ca/contact/</loc><lastmod>2026-11-03</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
 </urlset>
