@@ -397,7 +397,7 @@
     if (!('IntersectionObserver' in window)) return;
 
     var sectionSel = 'main > section, .vine-region > section, .page-hero, .visit-us, .section-bloom, .cta-final';
-    var cardSel = '.service, .why article, .team-card, .card, .faq details, .funding-card, .funding-side, .form-card, .hero-card, .prose > *, .section-head';
+    var cardSel = '.service, .why article, .team-card, .team-photo, .card, .faq details, .funding-card, .funding-side, .form-card, .hero-card, .prose > *, .section-head';
     var nodes = [];
 
     document.querySelectorAll(sectionSel).forEach(function (el) {
