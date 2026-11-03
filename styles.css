@@ -738,3 +738,201 @@ footer a { text-decoration: none; color: var(--forest-deep); font-weight: 700; }
     transition: none !important;
   }
 }
+
+
+/* ===== Fluid / alive motion (transform + opacity only) ===== */
+html { scroll-behavior: smooth; }
+
+body {
+  opacity: 0;
+  animation: pageFadeIn .55s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Soft drifting wash in the hero — very low motion */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -12% -8% auto auto;
+  width: min(52vw, 420px);
+  height: min(52vw, 420px);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 40%, rgba(232, 120, 136, .16), transparent 62%),
+    radial-gradient(circle at 70% 60%, rgba(174, 194, 155, .18), transparent 58%);
+  pointer-events: none;
+  z-index: 0;
+  transform: translate3d(0, 0, 0);
+  animation: heroDrift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.hero > .wrap { position: relative; z-index: 1; }
+@keyframes heroDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: .85; }
+  100% { transform: translate3d(-18px, 14px, 0) scale(1.06); opacity: 1; }
+}
+
+/* Optional soft petal accent in hero */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 6%;
+  bottom: 12%;
+  width: 18px;
+  height: 28px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: rgba(232, 120, 136, .22);
+  pointer-events: none;
+  z-index: 0;
+  animation: petalFloat 14s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@keyframes petalFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg); opacity: .35; }
+  50%      { transform: translate3d(10px, -16px, 0) rotate(10deg); opacity: .55; }
+}
+
+/* Scroll reveal — JS adds .reveal only when motion is allowed */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity .7s cubic-bezier(.22, 1, .36, 1),
+    transform .7s cubic-bezier(.22, 1, .36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Gentle hover lift on cards + buttons (pointer devices) */
+@media (hover: hover) and (pointer: fine) {
+  .service,
+  .team-card,
+  .why article,
+  .card,
+  .faq details,
+  .form-card,
+  .hero-card {
+    transition:
+      transform .35s cubic-bezier(.22, 1, .36, 1),
+      box-shadow .35s cubic-bezier(.22, 1, .36, 1);
+  }
+  .service:hover,
+  .team-card:hover,
+  .why article:hover,
+  .card:hover,
+  .faq details:hover,
+  .form-card:hover,
+  .hero-card:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: 0 16px 36px rgba(13, 79, 61, .10);
+  }
+  .btn,
+  .nav-cta {
+    transition:
+      transform .3s cubic-bezier(.22, 1, .36, 1),
+      box-shadow .3s cubic-bezier(.22, 1, .36, 1),
+      background .2s ease,
+      border-color .2s ease;
+  }
+  .btn:hover,
+  .nav-cta:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 14px 28px rgba(13, 79, 61, .28);
+  }
+  /* Keep forest CTA green on hover — lift without washing out */
+  .funding-side {
+    transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s cubic-bezier(.22, 1, .36, 1);
+  }
+  .funding-side:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: 0 18px 40px rgba(13, 79, 61, .28);
+  }
+}
+
+/* Stronger idle sway on pop flowers once opened */
+@media (min-width: 900px) {
+  .pop-flower.is-in {
+    animation: popBloom .72s cubic-bezier(.34, 1.56, .64, 1) forwards,
+               popSway 4.8s ease-in-out .72s infinite;
+    animation-delay: var(--pop-delay, 0s), calc(var(--pop-delay, 0s) + .72s);
+  }
+  @keyframes popSway {
+    0%, 100% { transform: scale(1) rotate(var(--pop-rot, -8deg)) translate3d(0, 0, 0); }
+    33%      { transform: scale(1.03) rotate(calc(var(--pop-rot, -8deg) + 4deg)) translate3d(0, -3px, 0); }
+    66%      { transform: scale(1) rotate(calc(var(--pop-rot, -8deg) - 3deg)) translate3d(0, -1px, 0); }
+  }
+}
+
+/* Vine end-bloom gentle float once fully drawn (JS toggles .is-grown) */
+.gv-end-bloom.is-grown {
+  animation: vineBloomFloat 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes vineBloomFloat {
+  0%, 100% { transform: scale(1) translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: scale(1.03) translate3d(0, -4px, 0) rotate(2.5deg); }
+}
+@media (max-width: 820px) {
+  .gv-end-bloom.is-grown {
+    animation: vineBloomFloatMobile 6s ease-in-out infinite;
+  }
+  @keyframes vineBloomFloatMobile {
+    0%, 100% { transform: scale(1) translate3d(0, 0, 0); }
+    50%      { transform: scale(1.02) translate3d(0, -2px, 0); }
+  }
+  /* Lighter hero drift on mobile */
+  .hero::before {
+    animation-duration: 28s;
+    width: min(70vw, 280px);
+    height: min(70vw, 280px);
+  }
+  .hero::after {
+    width: 12px;
+    height: 18px;
+    opacity: .4;
+    animation-duration: 18s;
+  }
+  .reveal {
+    transform: translate3d(0, 12px, 0);
+    transition-duration: .55s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body { animation: none; opacity: 1; }
+  .hero::before,
+  .hero::after,
+  .gv-end-bloom.is-grown,
+  .pop-flower.is-in {
+    animation: none !important;
+  }
+  .hero::before { opacity: .7; transform: none; }
+  .hero::after { opacity: .35; transform: none; }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .service:hover,
+  .team-card:hover,
+  .why article:hover,
+  .card:hover,
+  .faq details:hover,
+  .form-card:hover,
+  .hero-card:hover,
+  .btn:hover,
+  .nav-cta:hover,
+  .funding-side:hover {
+    transform: none !important;
+  }
+}

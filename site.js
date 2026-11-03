@@ -139,11 +139,21 @@
       if (bloom) {
         bt = clamp01((p - 0.68) / 0.32);
         bloom.style.opacity = String(bt);
-        bloom.style.transform = 'scale(' + (0.3 + bt * 0.7) + ')';
         bg = bloom.querySelector('.gv-bloom-g');
-        if (bg) {
-          bg.style.opacity = String(bt);
-          bg.style.transform = 'scale(' + (0.45 + bt * 0.55) + ')';
+        if (bt >= 0.995) {
+          bloom.classList.add('is-grown');
+          bloom.style.transform = '';
+          if (bg) {
+            bg.style.opacity = '1';
+            bg.style.transform = '';
+          }
+        } else {
+          bloom.classList.remove('is-grown');
+          bloom.style.transform = 'scale(' + (0.3 + bt * 0.7) + ')';
+          if (bg) {
+            bg.style.opacity = String(bt);
+            bg.style.transform = 'scale(' + (0.45 + bt * 0.55) + ')';
+          }
         }
         bf = bloom.querySelector('.gv-bloom-fill');
         if (bf) bf.style.fillOpacity = String(0.4 * bt);
@@ -379,6 +389,63 @@
     });
   })();
 
+
+  /* Scroll-reveal + soft motion helpers (before form early-return) */
+  (function scrollReveal() {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    var sectionSel = 'main > section, .vine-region > section, .page-hero, .visit-us, .section-bloom, .cta-final';
+    var cardSel = '.service, .why article, .team-card, .card, .faq details, .funding-card, .funding-side, .form-card, .hero-card, .prose > *, .section-head';
+    var nodes = [];
+
+    document.querySelectorAll(sectionSel).forEach(function (el) {
+      if (el.classList.contains('reveal')) return;
+      el.classList.add('reveal');
+      nodes.push(el);
+    });
+
+    document.querySelectorAll(cardSel).forEach(function (el, i) {
+      if (el.classList.contains('reveal')) return;
+      /* skip nested prose children that are too noisy */
+      if (el.matches('.prose > *') && !el.matches('h2, h3, p, ul')) return;
+      el.classList.add('reveal');
+      var parent = el.parentElement;
+      var siblings = parent ? parent.querySelectorAll(':scope > .reveal, :scope > .service, :scope > .team-card, :scope > article, :scope > .card') : null;
+      var idx = 0;
+      if (siblings) {
+        for (var s = 0; s < siblings.length; s++) {
+          if (siblings[s] === el) { idx = s; break; }
+        }
+      } else {
+        idx = i % 4;
+      }
+      el.style.setProperty('--reveal-delay', Math.min(idx * 0.07, 0.35) + 's');
+      nodes.push(el);
+    });
+
+    if (!nodes.length) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { root: null, rootMargin: '0px 0px -6% 0px', threshold: 0.12 });
+
+    nodes.forEach(function (n) {
+      /* already in view on load */
+      var rect = n.getBoundingClientRect();
+      var vh = window.innerHeight || 800;
+      if (rect.top < vh * 0.92 && rect.bottom > 40) {
+        n.classList.add('is-in');
+      } else {
+        io.observe(n);
+      }
+    });
+  })();
 
   var form = document.getElementById('contact-form');
   if (!form) return;
