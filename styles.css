@@ -241,6 +241,27 @@ section { padding: 3rem 0; }
   border-radius: 50%;
   background: var(--sage-mid);
 }
+.team-card .team-more {
+  margin-top: .75rem;
+}
+.team-card .team-more summary {
+  cursor: pointer;
+  color: var(--forest);
+  font-weight: 800;
+  font-size: .88rem;
+  list-style: none;
+}
+.team-card .team-more summary::-webkit-details-marker { display: none; }
+.team-card .team-more summary::after {
+  content: " +";
+  font-weight: 800;
+}
+.team-card .team-more[open] summary::after { content: " –"; }
+.team-card .team-more p {
+  margin: .55rem 0 0;
+  font-size: .9rem;
+}
+
 
 .faq details {
   background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: .9rem 1rem; margin-bottom: .7rem;
