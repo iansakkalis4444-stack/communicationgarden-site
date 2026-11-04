@@ -1909,3 +1909,11 @@ h1, h2, h3, h4 { font-family: "Poppins", system-ui, sans-serif; }
 .visit-us-copy { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); }
 .visit-us { padding: 3.5rem 0 !important; } .visit-us-copy h2 { font-weight: 700; font-size: clamp(1.7rem,3vw,2.25rem); color: var(--ink); }
 @media (max-width:560px){ .hero--photo .hero-sub, .hero--photo .hero-lede, .hero--photo .hero-title { text-shadow: 0 2px 14px rgba(20,45,38,.65); } }
+/* polish: hero contrast, OAP/visit gap */
+.hero-bg::after { background: linear-gradient(180deg, rgba(28,58,49,.62) 0%, rgba(28,58,49,.55) 60%, rgba(248,250,248,0) 88%, var(--bg) 100%); }
+.hero-title, .hero-sub, .hero-lede { text-shadow: 0 2px 16px rgba(15,35,29,.45); }
+@media (max-width:560px){ .hero-bg::after { background: linear-gradient(180deg, rgba(24,52,44,.72) 0%, rgba(24,52,44,.66) 72%, rgba(248,250,248,0) 94%, var(--bg) 100%); } }
+.vine-region > section:last-of-type { padding-bottom: 1rem !important; margin-bottom: 0 !important; }
+main > .section-bloom { padding: 0 !important; margin: 0 !important; min-height: 0 !important; }
+main > .section-bloom .grow-flower { height: 84px; }
+.visit-us { padding: 1rem 0 3rem !important; }
