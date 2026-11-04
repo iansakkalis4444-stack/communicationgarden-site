@@ -1917,3 +1917,15 @@ h1, h2, h3, h4 { font-family: "Poppins", system-ui, sans-serif; }
 main > .section-bloom { padding: 0 !important; margin: 0 !important; min-height: 0 !important; }
 main > .section-bloom .grow-flower { height: 84px; }
 .visit-us { padding: 1rem 0 3rem !important; }
+/* mobile photo proportions fix */
+.hero-photo picture, .fun-photo picture, .about-photo picture { aspect-ratio: auto !important; height: auto !important; }
+.hero-photo img, .fun-photo img, .about-photo img, .card-photo img { max-width: 100%; }
+.hero-bg { overflow: hidden; }
+.hero-bg picture { position: absolute; inset: -10px; display: block; }
+.hero-bg img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; max-width: none; object-fit: cover; transform: none !important; }
+@media (max-width: 819px) {
+  .hero-bg img { object-position: center 30%; }
+  .about-photo img { object-position: center 35%; }
+  .card-photo { max-height: none; }
+  .card-photo img { height: auto; max-height: none; aspect-ratio: 16 / 10; }
+}
