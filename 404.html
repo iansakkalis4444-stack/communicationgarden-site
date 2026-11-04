@@ -28,7 +28,7 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -37,7 +37,7 @@
   <div class="wrap topbar-inner">
     <a class="brand" href="/">
       <img src="/assets/logo.png" width="64" height="70" alt="Communication Garden logo">
-      <span><span class="brand-name">Communication Garden</span><span class="brand-tag">Speech · OT · Literacy</span></span>
+      <span><span class="brand-name">Communication<br><em>Garden</em></span></span>
     </a>
         <nav class="nav-desktop" aria-label="Primary">
       <ul>
@@ -58,6 +58,7 @@
         <li><a href="/contact/">Contact</a></li>
       </ul>
     </nav>
+    <a class="nav-phone desktop-only" href="tel:+16474510188"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>647-451-0188</a>
     <a class="nav-cta desktop-only" href="https://communicationgarden.janeapp.com/locations/communication-garden/book" target="_blank" rel="noopener">Book online</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-drawer">Menu</button>
   </div>
@@ -114,19 +115,19 @@
 </section>
 
 </main>
-<footer>
+<footer class="site-footer">
+  <svg class="footer-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C 240 0, 480 60, 720 30 S 1200 0, 1440 30 V60 H0Z" fill="currentColor"/></svg>
+  <div class="footer-inner">
   <div class="wrap footer-grid">
-    <div>
-      <h3>Communication Garden</h3>
+    <div class="footer-brand">
+      <a href="/" class="footer-logo"><img src="/assets/logo.png" width="64" height="70" alt="Communication Garden logo" loading="lazy"><span>Communication<br><em>Garden</em></span></a>
       <p>Speech therapy, occupational therapy, literacy, and social groups for children and families in Oakville.</p>
-      <p><strong>407A Speers Rd, Oakville, ON L6K 3T5</strong><br>
-      <a href="tel:+16474510188">647-451-0188</a><br>
-      <a href="mailto:info@communicationgarden.ca">info@communicationgarden.ca</a></p>
-      <p>Hours: Mon-Fri 8:00 am - 8:00 pm; Sat-Sun 9:00 am - 1:00 pm</p>
     </div>
     <div>
-      <h3>Services</h3>
+      <h3>Explore</h3>
       <ul>
+        <li><a href="/about-us/">About Us</a></li>
+        <li><a href="/what-we-treat/">What we treat</a></li>
         <li><a href="/speech-therapy/">Speech Therapy</a></li>
         <li><a href="/occupational-therapy/">Occupational Therapy</a></li>
         <li><a href="/literacy-services/">Literacy Services</a></li>
@@ -136,24 +137,27 @@
     <div>
       <h3>Clinic</h3>
       <ul>
-        <li><a href="/about-us/">About Us</a></li>
-        <li><a href="/what-we-treat/">What we treat</a></li>
-        <li><a href="/speech-therapy-oakville-faq/">FAQ</a></li>
         <li><a href="/oap-funding/">OAP Funding</a></li>
+        <li><a href="/speech-therapy-oakville-faq/">FAQ</a></li>
         <li><a href="/careers/">Careers</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="https://communicationgarden.janeapp.com/locations/communication-garden/book" target="_blank" rel="noopener">Book with Jane</a></li>
       </ul>
     </div>
     <div>
-      <h3>Get started</h3>
-      <ul>
-        <li><a href="https://communicationgarden.janeapp.com/locations/communication-garden/book" target="_blank" rel="noopener">Book with Jane</a></li>
-        <li><a href="/contact/">Contact form</a></li>
-        <li><a href="tel:+16474510188">Call 647-451-0188</a></li>
+      <h3>Visit</h3>
+      <ul class="footer-contact">
+        <li><span class="ci ci-pink" aria-hidden="true">●</span>407A Speers Rd<br>Oakville, ON L6K 3T5</li>
+        <li><span class="ci ci-blue" aria-hidden="true">●</span><a href="tel:+16474510188">647-451-0188</a></li>
+        <li><span class="ci ci-yellow" aria-hidden="true">●</span><a href="mailto:info@communicationgarden.ca">info@communicationgarden.ca</a></li>
+        <li><span class="ci ci-green" aria-hidden="true">●</span>Mon-Fri 8am-8pm<br>Sat-Sun 9am-1pm</li>
       </ul>
     </div>
   </div>
   <div class="wrap legal">
-    <p>© 2026 Communication Garden. Oakville, Ontario. Speech-language pathology, occupational therapy, literacy support, and social groups.</p>
+    <p>© 2026 Communication Garden. Oakville, Ontario.</p>
+    <p class="legal-links"><a href="/speech-therapy-oakville-faq/">FAQ</a><a href="/contact/">Contact</a><a href="/careers/">Careers</a></p>
+  </div>
   </div>
 </footer>
 <script src="/site.js" defer></script>
